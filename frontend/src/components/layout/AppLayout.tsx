@@ -5,11 +5,11 @@ import { Navbar } from './Navbar';
 
 export const AppLayout: React.FC = () => {
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
+    <div className="flex h-screen bg-[#1C1917] text-[#FAF7F5] overflow-hidden font-sans">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Navbar />
-        <main className="flex-1 overflow-y-auto p-8">
+        <main className="flex-1 overflow-y-auto p-6 md:p-8 bg-[#1C1917]">
           <Outlet />
         </main>
       </div>

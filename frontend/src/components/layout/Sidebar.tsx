@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Package, Sliders, FileText,
   Repeat, Receipt, CreditCard, Percent, Landmark,
-  Activity, TrendingUp, UserCog, Sparkles, ChevronRight
+  Activity, TrendingUp, UserCog, Sparkles
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
@@ -18,54 +18,54 @@ export const Sidebar: React.FC = () => {
     { label: 'Quotations', path: '/app/quotations', icon: FileText },
     { label: 'Subscriptions', path: '/app/subscriptions', icon: Repeat },
     { label: 'Invoices & Billing', path: '/app/invoices', icon: Receipt },
-    { label: 'Payments & Reconciliation', path: '/app/payments', icon: CreditCard },
+    { label: 'Payments & Ledger', path: '/app/payments', icon: CreditCard },
     { label: 'Taxes', path: '/app/taxes', icon: Landmark },
     { label: 'Discounts & Coupons', path: '/app/discounts', icon: Percent },
   ];
 
   const intelligenceItems = [
-    { label: 'Subscription Health', path: '/app/intelligence', icon: Activity, badge: 'AI' },
+    { label: 'Subscription Health', path: '/app/intelligence', icon: Activity, badge: 'Radar' },
     { label: 'Revenue Simulator', path: '/app/simulator', icon: TrendingUp, badge: 'What-If' },
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col flex-shrink-0 text-slate-300 select-none">
+    <aside className="w-64 bg-[#292524] border-r border-[#403A35] flex flex-col flex-shrink-0 text-[#FAF7F5] select-none">
       {/* Brand Header */}
-      <div className="h-16 flex items-center px-6 gap-3 border-b border-slate-800">
-        <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20">
+      <div className="h-16 flex items-center px-6 gap-3 border-b border-[#403A35]">
+        <div className="w-8 h-8 rounded-md bg-[#211E1C] border border-[#403A35] flex items-center justify-center text-[#EAB308] font-bold text-sm tracking-wide">
           S
         </div>
         <div>
-          <div className="font-bold text-white tracking-tight text-base flex items-center gap-1.5">
+          <div className="font-semibold text-[#FAF7F5] tracking-tight text-sm flex items-center gap-2">
             SUBSIGHT
-            <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
+            <span className="text-[10px] uppercase font-medium px-1.5 py-0.5 rounded bg-[#211E1C] text-[#EAB308] border border-[#403A35]">
               SaaS
             </span>
           </div>
-          <div className="text-[11px] text-slate-400 -mt-0.5 font-medium">Brightloop Software</div>
+          <div className="text-[11px] text-[#A8A29E] font-normal">Brightloop Software</div>
         </div>
       </div>
 
       {/* Navigation Sections */}
       <div className="flex-1 overflow-y-auto py-4 px-3 space-y-6">
         <div>
-          <div className="px-3 text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-2">
+          <div className="px-3 text-[10px] font-semibold tracking-wider text-[#78716C] uppercase mb-2">
             Operations
           </div>
-          <nav className="space-y-1">
+          <nav className="space-y-0.5">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  `flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-indigo-600 text-white font-semibold shadow-sm shadow-indigo-600/30'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                      ? 'bg-[#302B28] text-[#FAF7F5] font-semibold border-l-2 border-[#EAB308]'
+                      : 'text-[#A8A29E] hover:text-[#FAF7F5] hover:bg-[#211E1C]'
                   }`
                 }
               >
-                <item.icon className="w-4 h-4 flex-shrink-0" />
+                <item.icon className="w-4 h-4 flex-shrink-0 text-[#A8A29E]" />
                 <span>{item.label}</span>
               </NavLink>
             ))}
@@ -74,28 +74,28 @@ export const Sidebar: React.FC = () => {
 
         {/* Intelligence Section */}
         <div>
-          <div className="px-3 text-[11px] font-semibold tracking-wider text-indigo-400 uppercase mb-2 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="px-3 text-[10px] font-semibold tracking-wider text-[#78716C] uppercase mb-2 flex items-center gap-1.5">
+            <Sparkles className="w-3 h-3 text-[#EAB308]" />
             <span>Intelligence Modules</span>
           </div>
-          <nav className="space-y-1">
+          <nav className="space-y-0.5">
             {intelligenceItems.map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  `flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-indigo-600 text-white font-semibold shadow-sm'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                      ? 'bg-[#302B28] text-[#FAF7F5] font-semibold border-l-2 border-[#EAB308]'
+                      : 'text-[#A8A29E] hover:text-[#FAF7F5] hover:bg-[#211E1C]'
                   }`
                 }
               >
                 <div className="flex items-center gap-3">
-                  <item.icon className="w-4 h-4 flex-shrink-0 text-indigo-400" />
+                  <item.icon className="w-4 h-4 flex-shrink-0 text-[#EAB308]" />
                   <span>{item.label}</span>
                 </div>
-                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#211E1C] text-[#EAB308] border border-[#403A35]">
                   {item.badge}
                 </span>
               </NavLink>
@@ -106,21 +106,21 @@ export const Sidebar: React.FC = () => {
         {/* Admin Settings */}
         {isAdmin && (
           <div>
-            <div className="px-3 text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-2">
+            <div className="px-3 text-[10px] font-semibold tracking-wider text-[#78716C] uppercase mb-2">
               Administration
             </div>
-            <nav className="space-y-1">
+            <nav className="space-y-0.5">
               <NavLink
                 to="/app/staff"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
+                  `flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-indigo-600 text-white font-semibold'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                      ? 'bg-[#302B28] text-[#FAF7F5] font-semibold border-l-2 border-[#EAB308]'
+                      : 'text-[#A8A29E] hover:text-[#FAF7F5] hover:bg-[#211E1C]'
                   }`
                 }
               >
-                <UserCog className="w-4 h-4 flex-shrink-0" />
+                <UserCog className="w-4 h-4 flex-shrink-0 text-[#A8A29E]" />
                 <span>Staff Management</span>
               </NavLink>
             </nav>
@@ -129,17 +129,17 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* User Status Footer */}
-      <div className="p-3 border-t border-slate-800 bg-slate-950/60">
-        <div className="flex items-center gap-3 p-2 rounded-lg bg-slate-800/40 border border-slate-800">
-          <div className="w-8 h-8 rounded-full bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 flex items-center justify-center font-bold text-xs">
+      <div className="p-3 border-t border-[#403A35] bg-[#211E1C]">
+        <div className="flex items-center gap-3 p-2 rounded-md bg-[#292524] border border-[#403A35]">
+          <div className="w-7 h-7 rounded-md bg-[#302B28] border border-[#403A35] text-[#EAB308] flex items-center justify-center font-semibold text-xs">
             {user?.first_name?.[0] || 'U'}
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-semibold text-white truncate">
+            <div className="text-xs font-medium text-[#FAF7F5] truncate">
               {user?.first_name} {user?.last_name}
             </div>
-            <div className="text-[11px] text-slate-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+            <div className="text-[10px] text-[#A8A29E] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#65A882] inline-block"></span>
               {user?.role} Role
             </div>
           </div>

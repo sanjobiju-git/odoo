@@ -8,22 +8,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+        charcoal: {
+          DEFAULT: '#1C1917',   // Primary background
+          surface: '#292524',   // Sidebar & Card background
+          elevated: '#302B28',  // Elevated surface
+          subtle: '#211E1C',    // Subtle surface
+          border: '#403A35',    // Borders
         },
-        accent: {
-          DEFAULT: '#3b82f6',
-          dark: '#1d4ed8',
+        gold: {
+          DEFAULT: '#EAB308',   // Primary accent / Travertine Gold
+          hover: '#CA8A04',
+          muted: '#854D0E',
+          surface: '#33290E',
+        },
+        vellum: {
+          DEFAULT: '#FAF7F5',   // Primary text
+          secondary: '#A8A29E', // Secondary text
+          muted: '#78716C',     // Muted text
+        },
+        status: {
+          success: '#65A882',
+          warning: '#EAB308',
+          error: '#D97770',
         }
       },
       fontFamily: {
