@@ -10,6 +10,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    color-scheme: dark;
   }
 
   ::selection {
@@ -32,4 +33,46 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #78716C;
+}
+
+/* ==========================================================================
+   Form Controls: Native Select & Option Styles (Warm Charcoal & Travertine Gold)
+   ========================================================================== */
+select {
+  background-color: #292524 !important;
+  color: #FAF7F5 !important;
+  border-color: #403A35;
+  color-scheme: dark;
+}
+
+select:focus {
+  outline: none;
+  border-color: #EAB308;
+}
+
+select option {
+  background-color: #292524 !important;
+  color: #FAF7F5 !important;
+  padding: 8px 12px;
+}
+
+select option:hover,
+select option:focus {
+  background-color: #403A35 !important;
+  color: #FAF7F5 !important;
+}
+
+select option:checked,
+select option[selected] {
+  background-color: #EAB308 !important;
+  color: #1C1917 !important;
+}
+
+select option:disabled {
+  color: #78716C !important;
+  background-color: #211E1C !important;
+}
+
+select::placeholder {
+  color: #A8A29E !important;
 }
