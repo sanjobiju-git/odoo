@@ -1,0 +1,125 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: subsight-db
+    restart: always
+    environment:
+      POSTGRES_DB: subsight
+      POSTGRES_USER: subsight_user
+      POSTGRES_PASSWORD: subsight_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U subsight_user -d subsight"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: subsight-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: subsight-backend
+    restart: always
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py seed_demo_data &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application"
+    environment:
+      - SECRET_KEY=production-django-insecure-secret-key-change-me
+      - DEBUG=False
+      - ALLOWED_HOSTS=*
+      - DB_ENGINE=postgresql
+      - POSTGRES_DB=subsight
+      - POSTGRES_USER=subsight_user
+      - POSTGRES_PASSWORD=subsight_password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CORS_ALLOWED_ORIGINS=http://localhost,http://localhost:80,http://localhost:5173
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: subsight-celery-worker
+    restart: always
+    command: celery -A config worker --loglevel=info
+    environment:
+      - SECRET_KEY=production-django-insecure-secret-key-change-me
+      - DB_ENGINE=postgresql
+      - POSTGRES_DB=subsight
+      - POSTGRES_USER=subsight_user
+      - POSTGRES_PASSWORD=subsight_password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      backend:
+        condition: service_started
+      redis:
+        condition: service_healthy
+
+  celery_beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: subsight-celery-beat
+    restart: always
+    command: celery -A config beat --loglevel=info
+    environment:
+      - SECRET_KEY=production-django-insecure-secret-key-change-me
+      - DB_ENGINE=postgresql
+      - POSTGRES_DB=subsight
+      - POSTGRES_USER=subsight_user
+      - POSTGRES_PASSWORD=subsight_password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    depends_on:
+      backend:
+        condition: service_started
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: subsight-frontend
+    restart: always
+    ports:
+      - "80:80"
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:
